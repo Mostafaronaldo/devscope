@@ -322,6 +322,49 @@
     .toggle:checked:before { transform: translateX(22px); }
     .tog-wrap { display: flex; align-items: center; gap: 10px; color: var(--muted); }
 
+    /* Language toggle button */
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.4rem;
+      color: var(--muted);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 12px;
+    }
+    .lang-btn:hover {
+      color: var(--txt);
+      background: rgba(255,255,255,.06);
+    }
+    .lang-btn span {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* RTL styles */
+    html[dir="rtl"] {
+      direction: rtl;
+    }
+    html[dir="rtl"] .nav {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+    html[dir="rtl"] .member .meta {
+      text-align: right;
+    }
+    html[dir="rtl"] .float-cta {
+      right: auto;
+      left: 18px;
+    }
+    html[dir="rtl"] .contact ul {
+      padding-right: 18px;
+      padding-left: 0;
+    }
+
     /* Anchor target offset for sticky header */
     :target:before { content: ""; display: block; height: 70px; margin-top: -70px; visibility: hidden; }
   </style>
@@ -332,17 +375,20 @@
     <nav class="nav">
       <a class="brand" href="#top">
         <img src="logo.jpg" alt="Dev Scope logo" />
-        <span>Dev Scope</span>
+        <span id="siteTitle">Dev Scope</span>
       </a>
-      <a class="link" href="#services">Services</a>
-      <a class="link" href="#pricing">Pricing</a>
-      <a class="link" href="#team">Team</a>
-      <a class="link" href="#contact">Contact</a>
+      <a class="link" href="#services" id="navServices">Services</a>
+      <a class="link" href="#pricing" id="navPricing">Pricing</a>
+      <a class="link" href="#team" id="navTeam">Team</a>
+      <a class="link" href="#contact" id="navContact">Contact</a>
       <div class="spacer"></div>
+      <button class="lang-btn" id="langToggle">
+        <span id="langText">EN</span>🌐
+      </button>
       <div class="tog-wrap">
-        <small>Light</small>
+        <small id="lightText">Light</small>
         <input id="modeToggle" class="toggle" type="checkbox" aria-label="Toggle light/dark mode">
-        <small>Dark</small>
+        <small id="darkText">Dark</small>
       </div>
     </nav>
   </header>
@@ -351,12 +397,12 @@
   <main id="top" class="container">
     <section class="hero">
       <div>
-        <div class="badge reveal">Web & AI • Python Automation</div>
-        <h1 class="title reveal" style="transition-delay:.06s">We build smart experiences that ship fast — and look premium.</h1>
-        <p class="subtitle reveal" style="transition-delay:.12s">Websites, AI tools, and automation that are crafted to convert. Pixel‑perfect design, clean code, and clear results.</p>
+        <div class="badge reveal" id="heroBadge">Web & AI • Python Automation</div>
+        <h1 class="title reveal" style="transition-delay:.06s" id="heroTitle">We build smart experiences that ship fast — and look premium.</h1>
+        <p class="subtitle reveal" style="transition-delay:.12s" id="heroSubtitle">Websites, AI tools, and automation that are crafted to convert. Pixel‑perfect design, clean code, and clear results.</p>
         <div class="hero-cta">
-          <a class="btn reveal" href="#contact" style="transition-delay:.18s">Start a Project</a>
-          <a class="btn ghost reveal" href="#services" style="transition-delay:.24s">See Services</a>
+          <a class="btn reveal" href="#contact" style="transition-delay:.18s" id="ctaBtn1">Start a Project</a>
+          <a class="btn ghost reveal" href="#services" style="transition-delay:.24s" id="ctaBtn2">See Services</a>
         </div>
       </div>
       <div class="hero-visual reveal" style="transition-delay:.3s">
@@ -366,23 +412,23 @@
 
     <!-- Services -->
     <section id="services">
-      <h2 class="section-title">Our Services</h2>
-      <p class="muted" style="margin:0 0 12px">Solid engineering with a designer's eye. Built to scale and sell.</p>
+      <h2 class="section-title" id="servicesTitle">Our Services</h2>
+      <p class="muted" style="margin:0 0 12px" id="servicesSubtitle">Solid engineering with a designer's eye. Built to scale and sell.</p>
       <div class="grid cols-3">
         <article class="card reveal">
-          <span class="chip">Web Development</span>
-          <h3>Smart Websites</h3>
-          <p class="muted">Modern, responsive, SEO‑ready sites with fast load times and clean UI.</p>
+          <span class="chip" id="service1Chip">Web Development</span>
+          <h3 id="service1Title">Smart Websites</h3>
+          <p class="muted" id="service1Desc">Modern, responsive, SEO‑ready sites with fast load times and clean UI.</p>
         </article>
         <article class="card reveal" style="transition-delay:.06s">
-          <span class="chip">AI & LLM</span>
-          <h3>AI Tools</h3>
-          <p class="muted">Chatbots, content generation, and intelligent workflow assistants powered by AI.</p>
+          <span class="chip" id="service2Chip">AI & LLM</span>
+          <h3 id="service2Title">AI Tools</h3>
+          <p class="muted" id="service2Desc">Chatbots, content generation, and intelligent workflow assistants powered by AI.</p>
         </article>
         <article class="card reveal" style="transition-delay:.12s">
-          <span class="chip">Python</span>
-          <h3>Automation</h3>
-          <p class="muted">Data scraping, report generation, and business process automation.</p>
+          <span class="chip" id="service3Chip">Python</span>
+          <h3 id="service3Title">Automation</h3>
+          <p class="muted" id="service3Desc">Data scraping, report generation, and business process automation.</p>
         </article>
       </div>
     </section>
@@ -391,18 +437,18 @@
     <section id="pricing">
       <div class="card pricing reveal">
         <div>
-          <h2 class="section-title" style="margin:0">Pricing</h2>
-          <p class="muted" style="margin:6px 0 0">Transparent & negotiable based on scope and timeline.</p>
+          <h2 class="section-title" style="margin:0" id="pricingTitle">Pricing</h2>
+          <p class="muted" style="margin:6px 0 0" id="pricingSubtitle">Transparent & negotiable based on scope and timeline.</p>
         </div>
-        <div class="price-pill">EGP 2,500 → 8,000 (negotiable)</div>
+        <div class="price-pill" id="pricePill">EGP 2,500 → 8,000 (negotiable)</div>
       </div>
     </section>
 
     <!-- Team -->
     <section id="team">
       <div class="section-head">
-        <h2 class="section-title">Our Team</h2>
-        <div style="color:var(--muted)">Small team. Big output.</div>
+        <h2 class="section-title" id="teamTitle">Our Team</h2>
+        <div style="color:var(--muted)" id="teamSubtitle">Small team. Big output.</div>
       </div>
 
       <div class="team-grid">
@@ -410,7 +456,7 @@
           <img class="avatar" src="Sasa.jpg" alt="Mostafa Arafat">
           <div class="meta">
             <div style="font-weight:800">Mostafa Arafat</div>
-            <div style="color:var(--muted);font-size:13px;margin-top:6px">Founder & Team Lead</div>
+            <div style="color:var(--muted);font-size:13px;margin-top:6px" id="teamRole1">Founder & Team Lead</div>
           </div>
         </div>
 
@@ -418,7 +464,7 @@
           <img class="avatar" src="Disha.jpeg" alt="Mostafa Ibrahim">
           <div class="meta">
             <div style="font-weight:800">Mostafa Ibrahim</div>
-            <div style="color:var(--muted);font-size:13px;margin-top:6px">Software Developer</div>
+            <div style="color:var(--muted);font-size:13px;margin-top:6px" id="teamRole2">Software Developer</div>
           </div>
         </div>
 
@@ -426,7 +472,7 @@
           <img class="avatar" src="Yahya.jpeg" alt="Yehia Elshazly">
           <div class="meta">
             <div style="font-weight:800">Yehia Elshazly</div>
-            <div style="color:var(--muted);font-size:13px;margin-top:6px">Data Analyst</div>
+            <div style="color:var(--muted);font-size:13px;margin-top:6px" id="teamRole3">Data Analyst</div>
           </div>
         </div>
 
@@ -434,7 +480,7 @@
           <img class="avatar" src="Adham.jpeg" alt="Adham Weal">
           <div class="meta">
             <div style="font-weight:800">Adham Weal</div>
-            <div style="color:var(--muted);font-size:13px;margin-top:6px">UI/UX Designer</div>
+            <div style="color:var(--muted);font-size:13px;margin-top:6px" id="teamRole4">UI/UX Designer</div>
           </div>
         </div>
       </div>
@@ -444,16 +490,16 @@
     <section id="contact">
       <div class="contact">
         <div class="card reveal">
-          <h2 class="section-title" style="margin:0">Contact Us</h2>
-          <p class="muted" style="margin:8px 0 14px">We work around the clock. Reach out any time — we reply fast.</p>
+          <h2 class="section-title" style="margin:0" id="contactTitle">Contact Us</h2>
+          <p class="muted" style="margin:8px 0 14px" id="contactSubtitle">We work around the clock. Reach out any time — we reply fast.</p>
           <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <a class="btn" href="https://wa.me/201553848286" target="_blank" rel="noopener">WhatsApp us</a>
-            <a class="btn ghost" href="mailto:s78270375@gmail.com">Email us</a>
+            <a class="btn" href="https://wa.me/201553848286" target="_blank" rel="noopener" id="whatsappBtn">WhatsApp us</a>
+            <a class="btn ghost" href="mailto:s78270375@gmail.com" id="emailBtn">Email us</a>
           </div>
         </div>
         <div class="card reveal" style="transition-delay:.06s">
-          <h3 style="margin:0 0 8px">What you get</h3>
-          <ul class="muted" style="margin:0; padding-left:18px">
+          <h3 style="margin:0 0 8px" id="benefitsTitle">What you get</h3>
+          <ul class="muted" style="margin:0; padding-left:18px" id="benefitsList">
             <li>Clean, maintainable code</li>
             <li>Fast delivery with iterations</li>
             <li>Mobile‑first responsive design</li>
@@ -467,25 +513,207 @@
 
   <footer class="container">
     <div style="display:flex; align-items:center; gap:12px; justify-content:space-between; flex-wrap:wrap">
-      <small>© 2025 Dev Scope. All rights reserved.</small>
+      <small id="copyright">© 2025 Dev Scope. All rights reserved.</small>
       <div style="display: flex; gap: 12px;">
-        <a href="#" style="color: var(--muted); text-decoration: none;">Privacy Policy</a>
-        <a href="#" style="color: var(--muted); text-decoration: none;">Terms of Service</a>
+        <a href="#" style="color: var(--muted); text-decoration: none;" id="privacyLink">Privacy Policy</a>
+        <a href="#" style="color: var(--muted); text-decoration: none;" id="termsLink">Terms of Service</a>
       </div>
     </div>
   </footer>
 
   <!-- Floating WhatsApp CTA -->
   <div class="float-cta">
-    <a class="fab" href="https://wa.me/201553848286" target="_blank" rel="noopener">
+    <a class="fab" href="https://wa.me/201553848286" target="_blank" rel="noopener" id="whatsappFab">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-10.446 7.065c-3.308 0-6-2.692-6-6 0-1.567.622-3.047 1.75-4.157L3.107 7.945A9.954 9.954 0 0 0 2 12.447c0 5.523 4.477 10 10 10 1.872 0 3.652-.514 5.18-1.5l-1.614-1.724a5.968 5.968 0 0 1-3.566 1.164" fill="currentColor"/>
       </svg>
-      Chat on WhatsApp
+      <span id="whatsappText">Chat on WhatsApp</span>
     </a>
   </div>
 
   <script>
+    // Translations object
+    const translations = {
+      en: {
+        siteTitle: "Dev Scope",
+        navServices: "Services",
+        navPricing: "Pricing",
+        navTeam: "Team",
+        navContact: "Contact",
+        langText: "EN",
+        lightText: "Light",
+        darkText: "Dark",
+        heroBadge: "Web & AI • Python Automation",
+        heroTitle: "We build smart experiences that ship fast — and look premium.",
+        heroSubtitle: "Websites, AI tools, and automation that are crafted to convert. Pixel‑perfect design, clean code, and clear results.",
+        ctaBtn1: "Start a Project",
+        ctaBtn2: "See Services",
+        servicesTitle: "Our Services",
+        servicesSubtitle: "Solid engineering with a designer's eye. Built to scale and sell.",
+        service1Chip: "Web Development",
+        service1Title: "Smart Websites",
+        service1Desc: "Modern, responsive, SEO‑ready sites with fast load times and clean UI.",
+        service2Chip: "AI & LLM",
+        service2Title: "AI Tools",
+        service2Desc: "Chatbots, content generation, and intelligent workflow assistants powered by AI.",
+        service3Chip: "Python",
+        service3Title: "Automation",
+        service3Desc: "Data scraping, report generation, and business process automation.",
+        pricingTitle: "Pricing",
+        pricingSubtitle: "Transparent & negotiable based on scope and timeline.",
+        pricePill: "EGP 2,500 → 8,000 (negotiable)",
+        teamTitle: "Our Team",
+        teamSubtitle: "Small team. Big output.",
+        teamRole1: "Founder & Team Lead",
+        teamRole2: "Software Developer",
+        teamRole3: "Data Analyst",
+        teamRole4: "UI/UX Designer",
+        contactTitle: "Contact Us",
+        contactSubtitle: "We work around the clock. Reach out any time — we reply fast.",
+        whatsappBtn: "WhatsApp us",
+        emailBtn: "Email us",
+        benefitsTitle: "What you get",
+        benefitsList: [
+          "Clean, maintainable code",
+          "Fast delivery with iterations",
+          "Mobile‑first responsive design",
+          "SEO & performance optimized",
+          "Ongoing support"
+        ],
+        copyright: "© 2025 Dev Scope. All rights reserved.",
+        privacyLink: "Privacy Policy",
+        termsLink: "Terms of Service",
+        whatsappText: "Chat on WhatsApp"
+      },
+      ar: {
+        siteTitle: "ديف سكوب",
+        navServices: "الخدمات",
+        navPricing: "الأسعار",
+        navTeam: "الفريق",
+        navContact: "اتصل بنا",
+        langText: "AR",
+        lightText: "فاتح",
+        darkText: "داكن",
+        heroBadge: "ويب وذكاء اصطناعي • أتمتة بايثون",
+        heroTitle: "نصنع تجارب ذكية سريعة التنفيذ بمظهر راقٍ.",
+        heroSubtitle: "مواقع ويب، أدوات ذكاء اصطناعي، وأتمتة مصممة للتحويل. تصميم دقيق، كود نظيف، ونتائج واضحة.",
+        ctaBtn1: "ابدأ مشروعًا",
+        ctaBtn2: "عرض الخدمات",
+        servicesTitle: "خدماتنا",
+        servicesSubtitle: "هندسة قوية بعين المصمم. مصممة للنمو والبيع.",
+        service1Chip: "تطوير الويب",
+        service1Title: "مواقع ذكية",
+        service1Desc: "مواقع حديثة، متجاوبة، جاهزة لمحركات البحث مع أوقات تحميل سريعة وواجهة مستخدم نظيفة.",
+        service2Chip: "الذكاء الاصطناعي",
+        service2Title: "أدوات الذكاء الاصطناعي",
+        service2Desc: "روبوتات محادثة، توليد محتوى، ومساعدات عمل ذكية مدعومة بالذكاء الاصطناعي.",
+        service3Chip: "بايثون",
+        service3Title: "الأتمتة",
+        service3Desc: "جمع البيانات، إنشاء التقارير، وأتمتة العمليات التجارية.",
+        pricingTitle: "الأسعار",
+        pricingSubtitle: "شفافة وقابلة للتفاوض بناءً على النطاق والجدول الزمني.",
+        pricePill: "٢٥٠٠ ← ٨٠٠٠ ج.م (قابلة للتفاوض)",
+        teamTitle: "فريقنا",
+        teamSubtitle: "فريق صغير. إنتاج كبير.",
+        teamRole1: "المؤسس وقائد الفريق",
+        teamRole2: "مطور برمجيات",
+        teamRole3: "محلل بيانات",
+        teamRole4: "مصمم واجهات",
+        contactTitle: "اتصل بنا",
+        contactSubtitle: "نعمل على مدار الساعة. تواصل معنا في أي وقت - نرد بسرعة.",
+        whatsappBtn: "تواصل عبر واتساب",
+        emailBtn: "راسلنا عبر البريد",
+        benefitsTitle: "ما تحصل عليه",
+        benefitsList: [
+          "كود نظيف وسهل الصيانة",
+          "تسليم سريع مع تكرارات",
+          "تصميم متجاوب يبدأ من الموبايل",
+          "مُحسّن لمحركات البحث والأداء",
+          "دعم مستمر"
+        ],
+        copyright: "© ٢٠٢٥ ديف سكوب. جميع الحقوق محفوظة.",
+        privacyLink: "سياسة الخصوصية",
+        termsLink: "شروط الخدمة",
+        whatsappText: "محادثة واتساب"
+      }
+    };
+
+    // Language toggle functionality
+    const langToggle = document.getElementById("langToggle");
+    let currentLang = localStorage.getItem("lang") || "en";
+
+    function updateLanguage() {
+      const t = translations[currentLang];
+      
+      // Update all elements with translations
+      document.getElementById("siteTitle").textContent = t.siteTitle;
+      document.getElementById("navServices").textContent = t.navServices;
+      document.getElementById("navPricing").textContent = t.navPricing;
+      document.getElementById("navTeam").textContent = t.navTeam;
+      document.getElementById("navContact").textContent = t.navContact;
+      document.getElementById("langText").textContent = t.langText;
+      document.getElementById("lightText").textContent = t.lightText;
+      document.getElementById("darkText").textContent = t.darkText;
+      document.getElementById("heroBadge").textContent = t.heroBadge;
+      document.getElementById("heroTitle").textContent = t.heroTitle;
+      document.getElementById("heroSubtitle").textContent = t.heroSubtitle;
+      document.getElementById("ctaBtn1").textContent = t.ctaBtn1;
+      document.getElementById("ctaBtn2").textContent = t.ctaBtn2;
+      document.getElementById("servicesTitle").textContent = t.servicesTitle;
+      document.getElementById("servicesSubtitle").textContent = t.servicesSubtitle;
+      document.getElementById("service1Chip").textContent = t.service1Chip;
+      document.getElementById("service1Title").textContent = t.service1Title;
+      document.getElementById("service1Desc").textContent = t.service1Desc;
+      document.getElementById("service2Chip").textContent = t.service2Chip;
+      document.getElementById("service2Title").textContent = t.service2Title;
+      document.getElementById("service2Desc").textContent = t.service2Desc;
+      document.getElementById("service3Chip").textContent = t.service3Chip;
+      document.getElementById("service3Title").textContent = t.service3Title;
+      document.getElementById("service3Desc").textContent = t.service3Desc;
+      document.getElementById("pricingTitle").textContent = t.pricingTitle;
+      document.getElementById("pricingSubtitle").textContent = t.pricingSubtitle;
+      document.getElementById("pricePill").textContent = t.pricePill;
+      document.getElementById("teamTitle").textContent = t.teamTitle;
+      document.getElementById("teamSubtitle").textContent = t.teamSubtitle;
+      document.getElementById("teamRole1").textContent = t.teamRole1;
+      document.getElementById("teamRole2").textContent = t.teamRole2;
+      document.getElementById("teamRole3").textContent = t.teamRole3;
+      document.getElementById("teamRole4").textContent = t.teamRole4;
+      document.getElementById("contactTitle").textContent = t.contactTitle;
+      document.getElementById("contactSubtitle").textContent = t.contactSubtitle;
+      document.getElementById("whatsappBtn").textContent = t.whatsappBtn;
+      document.getElementById("emailBtn").textContent = t.emailBtn;
+      document.getElementById("benefitsTitle").textContent = t.benefitsTitle;
+      
+      // Update benefits list
+      const benefitsList = document.getElementById("benefitsList");
+      benefitsList.innerHTML = "";
+      t.benefitsList.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        benefitsList.appendChild(li);
+      });
+      
+      document.getElementById("copyright").textContent = t.copyright;
+      document.getElementById("privacyLink").textContent = t.privacyLink;
+      document.getElementById("termsLink").textContent = t.termsLink;
+      document.getElementById("whatsappText").textContent = t.whatsappText;
+      
+      // Set document direction
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+    }
+
+    // Initialize language
+    updateLanguage();
+
+    // Toggle language
+    langToggle.addEventListener("click", () => {
+      currentLang = currentLang === "en" ? "ar" : "en";
+      localStorage.setItem("lang", currentLang);
+      updateLanguage();
+    });
+
     // Light/Dark toggle with localStorage and system preference
     const root = document.documentElement;
     const toggle = document.getElementById('modeToggle');
@@ -557,6 +785,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
