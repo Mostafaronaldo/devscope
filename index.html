@@ -2,199 +2,516 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dev Scope</title>
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dev Scope — Web & AI Solutions</title>
+  <meta name="description" content="Dev Scope builds smart websites, AI tools, and automation powered by Python. Premium quality. Fast delivery.">
+  <meta name="theme-color" content="#0b1220">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --bg: #0b1220;             /* base bg */
+      --bg-soft: #0e172a;        /* panels */
+      --txt: #ecf3ff;            /* main text */
+      --muted: #a4b2c7;          /* secondary text */
+      --brand: #00e5ff;          /* accent */
+      --brand-2: #7c4dff;        /* secondary accent */
+      --card: #0f1b32cc;         /* glass card */
+      --stroke: rgba(255,255,255,0.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+      --radius: 20px;
     }
+
+    /* Light mode (toggleable) */
+    :root.light {
+      --bg: #f7f9fc;
+      --bg-soft: #ffffff;
+      --txt: #0c1220;
+      --muted: #364152;
+      --brand: #0ea5e9;
+      --brand-2: #6d28d9;
+      --card: #ffffffcc;
+      --stroke: rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #f5f5f5;
-      animation: fadeIn 1s ease-in;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--txt);
+      background:
+        radial-gradient(1200px 800px at 10% -10%, rgba(0,229,255,.12), transparent 60%),
+        radial-gradient(1200px 800px at 110% 10%, rgba(124,77,255,.12), transparent 55%),
+        linear-gradient(180deg, var(--bg) 0%, #0d1528 100%);
+      overflow-x: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    body.light {
+      background:
+        radial-gradient(1200px 800px at 10% -10%, rgba(14,165,233,.08), transparent 60%),
+        radial-gradient(1200px 800px at 110% 10%, rgba(109,40,217,.08), transparent 55%),
+        linear-gradient(180deg, var(--bg) 0%, #e6eef8 100%);
     }
 
+    /* Smooth reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    /* Header */
     header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 40px;
-      background-color: #1c1c1c;
-      color: #00e5ff;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      position: sticky; 
+      top: 0; 
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(10,17,34,.85), rgba(10,17,34,.55));
+      border-bottom: 1px solid var(--stroke);
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
-    header img {
-      height: 60px;
-      border-radius: 10px;
+    .light header {
+      background: linear-gradient(180deg, rgba(247,249,252,.85), rgba(247,249,252,.55));
     }
 
-    h1 {
-      font-size: 32px;
-      letter-spacing: 1px;
+    .nav {
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 14px 20px; 
+      display: flex; 
+      align-items: center; 
+      gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand img { width: 40px; height: 40px; border-radius: 12px; object-fit: cover; border: 1px solid var(--stroke); }
+    .brand span { font-weight: 800; letter-spacing: .3px; font-size: 18px; color: var(--txt); }
+    .spacer { flex: 1; }
+    .nav a.link { color: var(--muted); text-decoration: none; padding: 10px 12px; border-radius: 12px; transition: all 0.3s ease; }
+    .nav a.link:hover { color: var(--txt); background: rgba(255,255,255,.06); }
+    .btn {
+      display: inline-flex; 
+      align-items: center; 
+      gap: 10px; 
+      padding: 10px 16px; 
+      border-radius: 14px;
+      font-weight: 600; 
+      text-decoration: none; 
+      color: #001018; 
+      background: linear-gradient(135deg, var(--brand), #61f3ff);
+      box-shadow: var(--shadow); 
+      border: 1px solid rgba(255,255,255,.15);
+      transition: all 0.3s ease;
+    }
+    .btn:hover { filter: saturate(110%); transform: translateY(-2px); }
+    .btn.ghost { background: transparent; color: var(--txt); border: 1px solid var(--stroke); }
+
+    /* Hero */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 36px; align-items: center; padding: 72px 0 40px; }
+    .badge {
+      display: inline-flex; 
+      align-items: center; 
+      gap: 10px; 
+      padding: 8px 12px; 
+      border-radius: 999px; 
+      font-weight: 600;
+      background: linear-gradient(135deg, rgba(0,229,255,.14), rgba(124,77,255,.14)); 
+      border: 1px solid var(--stroke); 
+      color: var(--muted);
+      transition: all 0.3s ease;
+    }
+    .title { font-size: clamp(34px, 5vw, 56px); line-height: 1.05; margin: 18px 0 12px; font-weight: 800; }
+    .subtitle { font-size: clamp(16px, 2.2vw, 19px); color: var(--muted); max-width: 55ch; }
+    .hero-cta { margin-top: 26px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-visual {
+      position: relative; 
+      min-height: 360px; 
+      border-radius: var(--radius);
+      background:
+        linear-gradient(140deg, rgba(0,229,255,.18), rgba(124,77,255,.18)),
+        var(--bg-soft);
+      border: 1px solid var(--stroke); 
+      box-shadow: var(--shadow); 
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .glow {
+      position: absolute; 
+      inset: -30%; 
+      background: radial-gradient(closest-side, rgba(0,229,255,.2), transparent 70%);
+      filter: blur(40px); 
+      animation: float 9s ease-in-out infinite alternate;
+    }
+    @keyframes float { 0% { transform: translate(-10px, -6px); } 100% { transform: translate(14px, 10px); } }
+
+    /* Sections */
+    section { padding: 56px 0; }
+    .section-title { font-size: 28px; margin: 0 0 18px; }
+    .muted { color: var(--muted); }
+
+    /* Services cards */
+    .grid { display: grid; gap: 18px; }
+    .grid.cols-3 { grid-template-columns: repeat(3,1fr); }
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .grid.cols-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 620px) { .grid.cols-3 { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card); 
+      border: 1px solid var(--stroke); 
+      border-radius: var(--radius); 
+      padding: 22px; 
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,.4);
+    }
+    .card h3 { margin: 8px 0 6px; font-size: 20px; }
+    .chip {
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+      padding: 6px 10px; 
+      border-radius: 999px; 
+      font-size: 12px; 
+      font-weight: 700; 
+      letter-spacing: .3px; 
+      color: var(--txt);
+      background: linear-gradient(135deg, rgba(0,229,255,.18), rgba(124,77,255,.18)); 
+      border: 1px solid var(--stroke);
+      transition: all 0.3s ease;
     }
 
-    .section {
-      padding: 60px 20px;
-      max-width: 1100px;
-      margin: auto;
+    /* Pricing strip */
+    .pricing { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .price-pill {
+      font-size: 18px; 
+      font-weight: 800; 
+      letter-spacing: .4px; 
+      padding: 14px 18px; 
+      border-radius: 14px; 
+      color: #001018;
+      background: linear-gradient(135deg, #ffd36b, #ffb23f); 
+      border: 1px solid rgba(0,0,0,.06); 
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
     }
-
-    h2 {
-      color: #00e5ff;
-      margin-bottom: 20px;
-      font-size: 28px;
-    }
-
-    p, li {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    ul {
-      padding-left: 20px;
-    }
-
-    .team {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-
-    .member {
-      background-color: #1e2a38;
-      padding: 25px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
-    }
-
-    .member:hover {
+    .price-pill:hover {
       transform: scale(1.05);
     }
 
-    .member img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #00e5ff;
-      margin-bottom: 10px;
+    /* Team */
+    .team-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 18px; }
+    @media (max-width: 1100px) { .team-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 600px) { .team-grid { grid-template-columns: 1fr; } }
+
+    .member {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 16px; 
+      padding: 18px; 
+      border: 1px solid rgba(255,255,255,0.03); 
+      backdrop-filter: blur(6px);
+      transition: transform .36s cubic-bezier(.2,.9,.27,1), box-shadow .36s;
+      display: flex; 
+      gap: 12px; 
+      align-items: center;
+    }
+    .member:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(8,18,28,0.6); }
+    .member .meta { flex: 1; }
+    .avatar { width: 68px; height: 68px; border-radius: 12px; object-fit: cover; border: 2px solid rgba(255,255,255,0.04); }
+
+    /* Contact */
+    .contact { display: grid; grid-template-columns: 1fr .9fr; gap: 18px; align-items: center; }
+    @media (max-width: 900px) { .contact { grid-template-columns: 1fr; } }
+    .contact .card strong { font-size: 18px; }
+
+    footer { border-top: 1px solid var(--stroke); padding: 28px 0; color: var(--muted); transition: all 0.3s ease; }
+
+    /* Floating CTA */
+    .float-cta { position: fixed; right: 18px; bottom: 18px; z-index: 40; }
+    .fab {
+      display: inline-flex; 
+      align-items: center; 
+      gap: 10px; 
+      padding: 12px 16px; 
+      border-radius: 999px; 
+      font-weight: 700; 
+      text-decoration: none; 
+      color: #001018; 
+      background: linear-gradient(135deg, #25d366, #72f18f); 
+      box-shadow: var(--shadow); 
+      border: 1px solid rgba(0,0,0,.06);
+      transition: all 0.3s ease;
+    }
+    .fab:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
     }
 
-    .price {
-      font-size: 20px;
-      background-color: #ff6f00;
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 10px;
-      display: inline-block;
-      margin-top: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    /* Toggle */
+    .toggle {
+      appearance: none; 
+      width: 52px; 
+      height: 30px; 
+      border-radius: 999px; 
+      position: relative; 
+      background: rgba(255,255,255,.12); 
+      border: 1px solid var(--stroke); 
+      outline: none; 
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
+    .toggle:before {
+      content: ""; 
+      position: absolute; 
+      inset: 3px auto 3px 3px; 
+      width: 24px; 
+      border-radius: 999px; 
+      background: #fff; 
+      transition: transform .25s ease, background .3s ease;
+    }
+    .light .toggle:before {
+      background: var(--brand);
+    }
+    .toggle:checked:before { transform: translateX(22px); }
+    .tog-wrap { display: flex; align-items: center; gap: 10px; color: var(--muted); }
 
-    .contact a {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 16px;
-      background-color: #00e5ff;
-      color: #000;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    .contact a:hover {
-      background-color: #00bcd4;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      background-color: #121212;
-      color: #aaa;
-      font-size: 14px;
-    }
+    /* Anchor target offset for sticky header */
+    :target:before { content: ""; display: block; height: 70px; margin-top: -70px; visibility: hidden; }
   </style>
 </head>
 <body>
+  <!-- Header / Nav -->
   <header>
-    <img src="logo.jpg" alt="Dev Scope Logo">
-    <h1>Dev Scope</h1>
+    <nav class="nav">
+      <a class="brand" href="#top">
+        <img src="logo.jpg" alt="Dev Scope logo" />
+        <span>Dev Scope</span>
+      </a>
+      <a class="link" href="#services">Services</a>
+      <a class="link" href="#pricing">Pricing</a>
+      <a class="link" href="#team">Team</a>
+      <a class="link" href="#contact">Contact</a>
+      <div class="spacer"></div>
+      <div class="tog-wrap">
+        <small>Light</small>
+        <input id="modeToggle" class="toggle" type="checkbox" aria-label="Toggle light/dark mode">
+        <small>Dark</small>
+      </div>
+    </nav>
   </header>
 
-  <section class="section">
-    <h2>About Us</h2>
-    <p>We are Dev Scope – a passionate team crafting smart websites, AI tools, and automated systems tailored to your needs. Our work speaks for itself and we’re always ready for the next challenge.</p>
-  </section>
-
-  <section class="section">
-    <h2>Services</h2>
-    <ul>
-      <li>Smart Website Development</li>
-      <li>AI Tool Creation</li>
-      <li>Task Automation using Python</li>
-      <li>Custom Projects</li>
-    </ul>
-  </section>
-
-  <section class="section">
-    <h2>Pricing</h2>
-    <p class="price">Prices start from 2500 EGP to 8000 EGP – negotiable</p>
-  </section>
-
-  <section class="section">
-    <h2>Our Team</h2>
-    <div class="team">
-      <div class="member">
-        <img src="Sasa.jpg" alt="Mostafa Arafat">
-        <h3>Mostafa Arafat</h3>
-        <p>Founder</p>
-        <p>Email: s78270375@gmail.com</p>
+  <!-- Hero -->
+  <main id="top" class="container">
+    <section class="hero">
+      <div>
+        <div class="badge reveal">Web & AI • Python Automation</div>
+        <h1 class="title reveal" style="transition-delay:.06s">We build smart experiences that ship fast — and look premium.</h1>
+        <p class="subtitle reveal" style="transition-delay:.12s">Websites, AI tools, and automation that are crafted to convert. Pixel‑perfect design, clean code, and clear results.</p>
+        <div class="hero-cta">
+          <a class="btn reveal" href="#contact" style="transition-delay:.18s">Start a Project</a>
+          <a class="btn ghost reveal" href="#services" style="transition-delay:.24s">See Services</a>
+        </div>
       </div>
-      <div class="member">
-        <img src="Disha.jpeg" alt="Mostafa Ibrahim">
-        <h3>Mostafa Ibrahim</h3>
-        <p>Programmer</p>
-        <p>Email: mostafaboss125@gmail.com</p>
+      <div class="hero-visual reveal" style="transition-delay:.3s">
+        <div class="glow"></div>
       </div>
-      <div class="member">
-        <img src="Yahya.jpeg" alt="Yehia Elshazly">
-        <h3>Yehia Elshazly</h3>
-        <p>Data Analyst</p>
-        <p>Email: yehiaelshazly738@gmail.com</p>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+      <h2 class="section-title">Our Services</h2>
+      <p class="muted" style="margin:0 0 12px">Solid engineering with a designer's eye. Built to scale and sell.</p>
+      <div class="grid cols-3">
+        <article class="card reveal">
+          <span class="chip">Web Development</span>
+          <h3>Smart Websites</h3>
+          <p class="muted">Modern, responsive, SEO‑ready sites with fast load times and clean UI.</p>
+        </article>
+        <article class="card reveal" style="transition-delay:.06s">
+          <span class="chip">AI & LLM</span>
+          <h3>AI Tools</h3>
+          <p class="muted">Chatbots, content generation, and intelligent workflow assistants powered by AI.</p>
+        </article>
+        <article class="card reveal" style="transition-delay:.12s">
+          <span class="chip">Python</span>
+          <h3>Automation</h3>
+          <p class="muted">Data scraping, report generation, and business process automation.</p>
+        </article>
       </div>
-      <div class="member">
-        <img src="Adham.jpeg" alt="Adham Weal">
-        <h3>Adham Weal</h3>
-        <p>Designer</p>
-        <p>Email: adhamweal6@gmail.com</p>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing">
+      <div class="card pricing reveal">
+        <div>
+          <h2 class="section-title" style="margin:0">Pricing</h2>
+          <p class="muted" style="margin:6px 0 0">Transparent & negotiable based on scope and timeline.</p>
+        </div>
+        <div class="price-pill">EGP 2,500 → 8,000 (negotiable)</div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team">
+      <div class="section-head">
+        <h2 class="section-title">Our Team</h2>
+        <div style="color:var(--muted)">Small team. Big output.</div>
+      </div>
+
+      <div class="team-grid">
+        <div class="member reveal">
+          <img class="avatar" src="Sasa.jpg" alt="Mostafa Arafat">
+          <div class="meta">
+            <div style="font-weight:800">Mostafa Arafat</div>
+            <div style="color:var(--muted);font-size:13px;margin-top:6px">Founder & Team Lead</div>
+          </div>
+        </div>
+
+        <div class="member reveal" style="transition-delay:.06s">
+          <img class="avatar" src="Disha.jpeg" alt="Mostafa Ibrahim">
+          <div class="meta">
+            <div style="font-weight:800">Mostafa Ibrahim</div>
+            <div style="color:var(--muted);font-size:13px;margin-top:6px">Software Developer</div>
+          </div>
+        </div>
+
+        <div class="member reveal" style="transition-delay:.12s">
+          <img class="avatar" src="Yahya.jpeg" alt="Yehia Elshazly">
+          <div class="meta">
+            <div style="font-weight:800">Yehia Elshazly</div>
+            <div style="color:var(--muted);font-size:13px;margin-top:6px">Data Analyst</div>
+          </div>
+        </div>
+
+        <div class="member reveal" style="transition-delay:.18s">
+          <img class="avatar" src="Adham.jpeg" alt="Adham Weal">
+          <div class="meta">
+            <div style="font-weight:800">Adham Weal</div>
+            <div style="color:var(--muted);font-size:13px;margin-top:6px">UI/UX Designer</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="contact">
+        <div class="card reveal">
+          <h2 class="section-title" style="margin:0">Contact Us</h2>
+          <p class="muted" style="margin:8px 0 14px">We work around the clock. Reach out any time — we reply fast.</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <a class="btn" href="https://wa.me/201553848286" target="_blank" rel="noopener">WhatsApp us</a>
+            <a class="btn ghost" href="mailto:s78270375@gmail.com">Email us</a>
+          </div>
+        </div>
+        <div class="card reveal" style="transition-delay:.06s">
+          <h3 style="margin:0 0 8px">What you get</h3>
+          <ul class="muted" style="margin:0; padding-left:18px">
+            <li>Clean, maintainable code</li>
+            <li>Fast delivery with iterations</li>
+            <li>Mobile‑first responsive design</li>
+            <li>SEO & performance optimized</li>
+            <li>Ongoing support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <div style="display:flex; align-items:center; gap:12px; justify-content:space-between; flex-wrap:wrap">
+      <small>© 2025 Dev Scope. All rights reserved.</small>
+      <div style="display: flex; gap: 12px;">
+        <a href="#" style="color: var(--muted); text-decoration: none;">Privacy Policy</a>
+        <a href="#" style="color: var(--muted); text-decoration: none;">Terms of Service</a>
       </div>
     </div>
-  </section>
-
-  <section class="section contact">
-    <h2>Contact Us</h2>
-    <p>We work around the clock! Reach us any time:</p>
-    <a href="https://wa.me/201553848286">WhatsApp</a>
-    <a href="mailto:s78270375@gmail.com">Email</a>
-  </section>
-
-  <footer>
-    &copy; 2025 Dev Scope. All rights reserved.
   </footer>
+
+  <!-- Floating WhatsApp CTA -->
+  <div class="float-cta">
+    <a class="fab" href="https://wa.me/201553848286" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-10.446 7.065c-3.308 0-6-2.692-6-6 0-1.567.622-3.047 1.75-4.157L3.107 7.945A9.954 9.954 0 0 0 2 12.447c0 5.523 4.477 10 10 10 1.872 0 3.652-.514 5.18-1.5l-1.614-1.724a5.968 5.968 0 0 1-3.566 1.164" fill="currentColor"/>
+      </svg>
+      Chat on WhatsApp
+    </a>
+  </div>
+
+  <script>
+    // Light/Dark toggle with localStorage and system preference
+    const root = document.documentElement;
+    const toggle = document.getElementById('modeToggle');
+    const body = document.body;
+    
+    // Check for saved user preference or system preference
+    const savedTheme = localStorage.getItem('devscope-theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Apply theme
+    function applyTheme(isDark) {
+      if (isDark) {
+        root.classList.remove('light');
+        body.classList.remove('light');
+        toggle.checked = true;
+      } else {
+        root.classList.add('light');
+        body.classList.add('light');
+        toggle.checked = false;
+      }
+    }
+    
+    // Initial load
+    if (savedTheme) {
+      applyTheme(savedTheme === 'dark');
+    } else {
+      applyTheme(systemPrefersDark);
+      localStorage.setItem('devscope-theme', systemPrefersDark ? 'dark' : 'light');
+    }
+    
+    // Toggle handler
+    toggle.addEventListener('change', () => {
+      const isDark = toggle.checked;
+      applyTheme(isDark);
+      localStorage.setItem('devscope-theme', isDark ? 'dark' : 'light');
+    });
+    
+    // Watch for system preference changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem('devscope-theme')) {
+        applyTheme(e.matches);
+      }
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { 
+        if (e.isIntersecting) {
+          e.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.16 });
+    
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
+
 
 
 
